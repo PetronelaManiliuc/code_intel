@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Kata_Invoicing.Infrastructure;
 using Kata_Invoicing.Infrastructure.DomainBase;
 using Kata_Invoicing.Infrastructure.PersistanceManager;
@@ -60,18 +56,18 @@ namespace Kata_Invoicing.Model.Invoices
         {
             Invoice invoice = new Invoice();
 
-            invoice.ID = DataHelper.GetInteger(dataReader["ID"]);
-            invoice.ContractID = DataHelper.GetInteger(dataReader["ContractID"]);
-            invoice.SettlementCycleID = DataHelper.GetInteger(dataReader["SettlementCycleID"]);
-            invoice.DateCreated = DataHelper.GetDateTime(dataReader["DateCreated"]);
-            invoice.InvoiceDate = DataHelper.GetDateTime(dataReader["InvoiceDate"]);
-            invoice.InvoiceStartDate = DataHelper.GetDateTime(dataReader["InvoiceStartDate"]);
-            invoice.InvoiceEndDate = DataHelper.GetDateTime(dataReader["InvoiceEndDate"]);
-            invoice.InvoiceTypeID = DataHelper.GetInteger(dataReader["InvoiceTypeID"]);
-            invoice.Number = DataHelper.GetString(dataReader["Number"]);
-            invoice.TotalPayOutAmount = DataHelper.GetDecimal(dataReader["TotalPayOutAmount"]);
-            invoice.SettlementCurrency = DataHelper.GetString(dataReader["SettlementCurrency"]);
-            invoice.InvoiceFilePathXLS = DataHelper.GetString(dataReader["InvoiceFilePathXLS"]);
+            invoice.ID = DataHelper.GetInteger(dataReader[FieldNames.Id]);
+            invoice.ContractID = DataHelper.GetInteger(dataReader[FieldNames.ContractID]);
+            invoice.SettlementCycleID = DataHelper.GetInteger(dataReader[FieldNames.SettlementCycleID]);
+            invoice.DateCreated = DataHelper.GetDateTime(dataReader[FieldNames.DateCreated]);
+            invoice.InvoiceDate = DataHelper.GetDateTime(dataReader[FieldNames.InvoiceDate]);
+            invoice.InvoiceStartDate = DataHelper.GetDateTime(dataReader[FieldNames.InvoiceStartDate]);
+            invoice.InvoiceEndDate = DataHelper.GetDateTime(dataReader[FieldNames.InvoiceEndDate]);
+            invoice.InvoiceTypeID = DataHelper.GetInteger(dataReader[FieldNames.InvoiceTypeID]);
+            invoice.Number = DataHelper.GetString(dataReader[FieldNames.Number]);
+            invoice.TotalPayOutAmount = DataHelper.GetDecimal(dataReader[FieldNames.TotalPayOutAmount]);
+            invoice.SettlementCurrency = DataHelper.GetString(dataReader[FieldNames.SettlementCurrency]);
+            invoice.InvoiceFilePathXLS = DataHelper.GetString(dataReader[FieldNames.InvoiceFilePathXLS]);
 
             return invoice;
         }

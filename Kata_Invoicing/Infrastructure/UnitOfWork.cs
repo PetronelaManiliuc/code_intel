@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Transactions;
 using Kata_Invoicing.Infrastructure.DomainBase;
 using Kata_Invoicing.Infrastructure.RepositoryFramework;
@@ -179,7 +177,7 @@ namespace Kata_Invoicing.Infrastructure
 
         public object Key
         {
-            get { return this.key; }
+            get => this.key;
         }
 
 

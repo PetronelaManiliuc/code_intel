@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Kata_Invoicing.Infrastructure.DomainBase;
 using Kata_Invoicing.Infrastructure.EntityFactoryFramework;
 using Kata_Invoicing.Infrastructure.RepositoryFramework;
@@ -65,7 +62,7 @@ namespace Kata_Invoicing.Infrastructure.Repositories
 
         #region Abstract Methods
 
-        protected abstract SqlCommand AllEntitiesSqlCommand();
+        protected abstract SqlCommand AllEntitiesSqlCommand(string commandText);
         protected abstract SqlCommand EntityByKeySqlCommand(int key);
 
         //
@@ -102,7 +99,7 @@ namespace Kata_Invoicing.Infrastructure.Repositories
 
         public override IList<T> FindAll(bool thinVersion = true)
         {
-            return this.BuildEntitiesFromSqlCommand(this.AllEntitiesSqlCommand(), thinVersion);
+            return this.BuildEntitiesFromSqlCommand(this.AllEntitiesSqlCommand("InvoiceGetAll"), thinVersion);
         }
 
         public IList<T> FindAll(SqlCommand command, bool thinVersion = true)

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Kata_Invoicing.Model.Invoices;
 
 namespace Kata_Invoicing.Infrastructure.Repositories.Invoices
@@ -18,7 +15,7 @@ namespace Kata_Invoicing.Infrastructure.Repositories.Invoices
 
         protected override string GetKeyFieldName()
         {
-            return InvoiceFactory.FieldNames.Id;
+            return FieldNames.Id;
         }
 
         #region Public Constructors
@@ -41,19 +38,18 @@ namespace Kata_Invoicing.Infrastructure.Repositories.Invoices
 
         }
 
-        protected override SqlCommand AllEntitiesSqlCommand()
+        protected override SqlCommand AllEntitiesSqlCommand(string commandText)
         {
             SqlCommand command = new SqlCommand();
             command.CommandType = CommandType.StoredProcedure;
-            command.CommandText = "InvoiceGetAll";
+            command.CommandText = commandText;
+
             return command;
         }
 
         protected override SqlCommand EntityByKeySqlCommand(int key)
         {
-            SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.StoredProcedure;
-            command.CommandText = "InvoiceGetByID";
+            SqlCommand command = AllEntitiesSqlCommand("InvoiceGetByID");
             command.Parameters.Add("@ID", SqlDbType.Int);
             command.Parameters["@ID"].Value = (key);
             return command;
@@ -61,20 +57,18 @@ namespace Kata_Invoicing.Infrastructure.Repositories.Invoices
 
         protected SqlCommand UpdateEntitySqlCommand(Invoice invoice)
         {
-            SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.StoredProcedure;
-            command.CommandText = "InvoiceUpdate";
+            SqlCommand command = AllEntitiesSqlCommand("InvoiceUpdate");
 
             command.Parameters.Add("@ID", SqlDbType.Int);
             command.Parameters["@ID"].Value = invoice.ID;
-            
+
 
             command.Parameters.Add("@InvoiceFilePathXLS", SqlDbType.VarChar);
             command.Parameters["@InvoiceFilePathXLS"].Value = invoice.InvoiceFilePathXLS;
 
             return command;
         }
-        
+
         protected override bool PersistNewItem(Invoice item)
         {
             return false;
@@ -93,36 +87,32 @@ namespace Kata_Invoicing.Infrastructure.Repositories.Invoices
 
         #region Public Methods
 
-
         public List<InvoicePayment> GetInvoicePayments(int invoiceID)
         {
-            SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.StoredProcedure;
-            command.CommandText = "InvoicePaymentsGetByInvoiceID";
+            SqlCommand command = AllEntitiesSqlCommand("InvoicePaymentsGetByInvoiceID");
+
             command.Parameters.Add(new SqlParameter("@InvoiceID", SqlDbType.Int));
             command.Parameters["@InvoiceID"].Value = invoiceID;
 
             return PersistanceManager.PersistanceManager.ExecuteStoredProcedureQuery<InvoicePayment>(command).ToList();
         }
-  
+
 
         public List<InvoiceFee> GetInvoiceFees(int invoiceID)
         {
-            SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.StoredProcedure;
-            command.CommandText = "InvoiceFeesGetByInvoiceID";
+            SqlCommand command = AllEntitiesSqlCommand("InvoiceFeesGetByInvoiceID");
+
             command.Parameters.Add(new SqlParameter("@InvoiceID", SqlDbType.Int));
             command.Parameters["@InvoiceID"].Value = invoiceID;
 
             return PersistanceManager.PersistanceManager.ExecuteStoredProcedureQuery<InvoiceFee>(command).ToList();
         }
-     
+
 
         public InvoiceDetails GetInvoiceDetails(int invoiceID)
         {
-            SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.StoredProcedure;
-            command.CommandText = "InvoiceDetailsGetByInvoiceID";
+            SqlCommand command = AllEntitiesSqlCommand("InvoiceDetailsGetByInvoiceID");
+
             command.Parameters.Add(new SqlParameter("@InvoiceID", SqlDbType.Int));
             command.Parameters["@InvoiceID"].Value = invoiceID;
 

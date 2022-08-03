@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\Common\Constants\FieldNames.cs" />
     <Compile Include="Infrastructure\Common\Utils\CellStyleUtil.cs" />
     <Compile Include="Infrastructure\Common\Constants\Constants.cs" />
     <Compile Include="Infrastructure\Common\Utils\ExcelHelper.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Infrastructure\PersistanceManager\PersistanceManager.cs" />
     <Compile Include="Infrastructure\Repositories\Invoices\InvoiceFactory.cs" />
     <Compile Include="Infrastructure\Repositories\Invoices\InvoiceRepository.cs" />
+    <Compile Include="Infrastructure\Repositories\ISqlRepositoryBase.cs" />
     <Compile Include="Infrastructure\Repositories\SqlRepositoryBase.cs" />
     <Compile Include="Infrastructure\RepositoryFramework\Configuration\RepositoryMappingCollection.cs" />
     <Compile Include="Infrastructure\RepositoryFramework\Configuration\RepositoryMappingConstants.cs" />

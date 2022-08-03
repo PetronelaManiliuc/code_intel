@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Kata_Invoicing.Infrastructure.DomainBase;
 using Kata_Invoicing.Infrastructure.RepositoryFramework.Configuration;
 
@@ -30,13 +27,13 @@ namespace Kata_Invoicing.Infrastructure.RepositoryFramework
             where TRepository : class, IRepository<TEntity>
             where TEntity : IAggregateRoot
         {
-            // Initialize the provider's default value
-            TRepository repository = default(TRepository);
-
             string interfaceShortName = typeof(TRepository).Name;
 
+            // Initialize the provider's default value
+            TRepository repository;
+
             // See if the provider was already created and is in the cache
-            if (!RepositoryFactory.repositories.ContainsKey(interfaceShortName))
+            if (!repositories.ContainsKey(interfaceShortName))
             {
                 // Not there, so create it
 
@@ -91,7 +88,7 @@ namespace Kata_Invoicing.Infrastructure.RepositoryFramework
                 repository = Activator.CreateInstance(repositoryType, constructorArgs) as TRepository;
 
                 // Add the new provider instance to the cache
-                RepositoryFactory.repositories.Add(interfaceShortName, repository);
+                repositories.Add(interfaceShortName, repository);
             }
             else
             {
@@ -115,7 +112,7 @@ namespace Kata_Invoicing.Infrastructure.RepositoryFramework
             where TRepository : class, IRepository<TEntity>
             where TEntity : IAggregateRoot
         {
-            return RepositoryFactory.GetRepository<TRepository, TEntity>(null);
+            return GetRepository<TRepository, TEntity>(null);
         }
     }
 }

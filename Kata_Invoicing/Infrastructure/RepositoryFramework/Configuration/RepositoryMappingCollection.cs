@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 
 namespace Kata_Invoicing.Infrastructure.RepositoryFramework.Configuration
 {
@@ -21,7 +16,7 @@ namespace Kata_Invoicing.Infrastructure.RepositoryFramework.Configuration
 
         public override ConfigurationElementCollectionType CollectionType
         {
-            get { return ConfigurationElementCollectionType.BasicMap; }
+            get => ConfigurationElementCollectionType.BasicMap;
         }
 
         /// <summary>
@@ -29,12 +24,12 @@ namespace Kata_Invoicing.Infrastructure.RepositoryFramework.Configuration
         /// </summary>
         protected override string ElementName
         {
-            get { return RepositoryMappingConstants.ConfigurationElementName; }
+            get => RepositoryMappingConstants.ConfigurationElementName;
         }
 
         public RepositoryMappingElement this[int index]
         {
-            get { return (RepositoryMappingElement)this.BaseGet(index); }
+            get => (RepositoryMappingElement)this.BaseGet(index);
             set
             {
                 if (this.BaseGet(index) != null)
@@ -52,7 +47,7 @@ namespace Kata_Invoicing.Infrastructure.RepositoryFramework.Configuration
         /// <returns></returns>
         public new RepositoryMappingElement this[string interfaceShortTypeName]
         {
-            get { return (RepositoryMappingElement)this.BaseGet(interfaceShortTypeName); }
+            get => (RepositoryMappingElement)this.BaseGet(interfaceShortTypeName);
         }
 
         /// <summary>
@@ -70,7 +65,6 @@ namespace Kata_Invoicing.Infrastructure.RepositoryFramework.Configuration
                 {
                     result = true;
                     break;
-
                 }
             }
             return result;

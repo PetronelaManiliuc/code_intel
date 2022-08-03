@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
 using Kata_Invoicing.Infrastructure.DomainBase;
-using log4net;
 
 namespace Kata_Invoicing.Infrastructure.RepositoryFramework
 {
@@ -12,7 +11,6 @@ namespace Kata_Invoicing.Infrastructure.RepositoryFramework
 
         private IUnitOfWork unitOfWork;
 
-        private static ILog _log = LogManager.GetLogger(typeof(RepositoryBase<T>));
         private static string _connectionString;
 
         /// <summary>
@@ -20,7 +18,7 @@ namespace Kata_Invoicing.Infrastructure.RepositoryFramework
         /// </summary>
         protected internal static string ConnectionString
         {
-            get { return _connectionString; }
+            get => _connectionString;
         }
 
         #endregion Fields and properties
@@ -31,18 +29,18 @@ namespace Kata_Invoicing.Infrastructure.RepositoryFramework
             : this(null)
         {
 
-            if (ConfigurationManager.AppSettings["ConnectionString"] != null)
+            if (ConfigurationManager.AppSettings[FieldNames.ConnectionString] != null)
             {
-                _connectionString = ConfigurationManager.AppSettings["ConnectionString"];
+                _connectionString = ConfigurationManager.AppSettings[FieldNames.ConnectionString];
             }
         }
 
         protected RepositoryBase(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
-            if (ConfigurationManager.AppSettings["ConnectionString"] != null)
+            if (ConfigurationManager.AppSettings[FieldNames.ConnectionString] != null)
             {
-                _connectionString = ConfigurationManager.AppSettings["ConnectionString"];
+                _connectionString = ConfigurationManager.AppSettings[FieldNames.ConnectionString]; ;
             }
         }
 
@@ -68,10 +66,8 @@ namespace Kata_Invoicing.Infrastructure.RepositoryFramework
 
         public T this[int key]
         {
-            get
-            {
-                return this.FindBy(key);
-            }
+            get => this.FindBy(key);
+
             set
             {
                 if (key == 0

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using log4net;
 
@@ -45,7 +41,6 @@ namespace Kata_Invoicing.Model.Settings
                 catch (Exception e)
                 {
                     _log.Error(e + " GetSettings()");
-                    //settings = null;
                 }
             }
 

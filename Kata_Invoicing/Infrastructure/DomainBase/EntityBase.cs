@@ -14,7 +14,7 @@ namespace Kata_Invoicing.Infrastructure.DomainBase
     /// We added this class here because it's not a part from domain logic but provides necessary functionality to the domain model
     /// </summary>
     [Serializable]
-    public abstract class EntityBase : IEntity//, INotifyPropertyChanged, IDataErrorInfo
+    public abstract class EntityBase : IEntity
     {
         private int key = 0;
         private bool toBeDeleted = false;
@@ -32,31 +32,26 @@ namespace Kata_Invoicing.Infrastructure.DomainBase
         /// <summary>
         /// Overloaded constructor.
         /// </summary>
-        /// <param name="key">An <see cref="System.Object"/> that 
+        /// <param name="key">An <see cref="object"/> that 
         /// represents the primary identifier value for the 
         /// class.</param>
         protected EntityBase(int key)
         {
             this.key = key;
-           
+
             this.brokenRules = new List<BrokenRule>();
             this.brokenRuleMessages = this.GetBrokenRuleMessages();
         }
 
         /// <summary>
-        /// An <see cref="System.Object"/> that represents the 
+        /// An <see cref="object"/> that represents the 
         /// primary identifier value for the class.
         /// </summary>
         public int Key
         {
-            get
-            {
-                return this.key;
-            }
-            set
-            {
-                this.key = value;
-            }
+            get => this.key;
+            set => this.key = value;
+
         }
 
         public static object NewKey()
@@ -66,25 +61,19 @@ namespace Kata_Invoicing.Infrastructure.DomainBase
 
         public bool ToBeDeleted
         {
-            get
-            {
-                return this.toBeDeleted;
-            }
-            set
-            {
-                this.toBeDeleted = value;
-            }
+            get => this.toBeDeleted;
+            set => this.toBeDeleted = value;
+
         }
 
         #region Validation and Broken Rules
 
         public abstract void Validate();
-
         protected abstract BrokenRuleMessages GetBrokenRuleMessages();
 
         public List<BrokenRule> BrokenRules
         {
-            get { return this.brokenRules; }
+            get => this.brokenRules;
         }
 
         public ReadOnlyCollection<BrokenRule> GetBrokenRules()
@@ -93,13 +82,6 @@ namespace Kata_Invoicing.Infrastructure.DomainBase
             this.Validate();
             return this.brokenRules.AsReadOnly();
         }
-
-        //protected void AddBrokenRule(string messageKey)
-        //{
-        //    this.brokenRules.Add(new BrokenRule(messageKey,
-        //        this.brokenRuleMessages.GetRuleDescription(messageKey)));
-        //}
-
         #endregion
 
         #region Equality Tests
@@ -108,7 +90,7 @@ namespace Kata_Invoicing.Infrastructure.DomainBase
         /// Determines whether the specified entity is equal to the 
         /// current instance.
         /// </summary>
-        /// <param name="entity">An <see cref="System.Object"/> that 
+        /// <param name="entity">An <see cref="object"/> that 
         /// will be compared to the current instance.</param>
         /// <returns>True if the passed in entity is equal to the 
         /// current instance.</returns>
@@ -176,9 +158,9 @@ namespace Kata_Invoicing.Infrastructure.DomainBase
 
         #endregion
 
-        public static String GenerateKey(Object sourceObject)
+        public static string GenerateKey(object sourceObject)
         {
-            String hashString;
+            string hashString;
 
             //Catch unuseful parameter values
             if (sourceObject == null)
@@ -197,7 +179,7 @@ namespace Kata_Invoicing.Infrastructure.DomainBase
                 catch (Exception ame)
                 {
                     Console.WriteLine("Could not definitely decide if object is serializable. Message:" + ame.Message);
-                    return null;
+                    return string.Empty;
                 }
             }
         }
@@ -220,18 +202,18 @@ namespace Kata_Invoicing.Infrastructure.DomainBase
                 // And return it
                 return sb.ToString();
             }
-            catch (ArgumentNullException ane)
+            catch (ArgumentNullException _ane)
             {
                 //If something occurred during serialization, 
                 //this method is called with a null argument. 
-                Console.WriteLine("Hash has not been generated.");
-                return null;
+                Console.WriteLine( "Hash has not been generated." + _ane.Message);
+                return string.Empty;
             }
         }
 
-        private static readonly Object locker = new Object();
+        private static readonly object locker = new object();
 
-        public static byte[] ObjectToByteArray(Object objectToSerialize)
+        public static byte[] ObjectToByteArray(object objectToSerialize)
         {
             MemoryStream fs = new MemoryStream();
             BinaryFormatter formatter = new BinaryFormatter();
@@ -246,13 +228,14 @@ namespace Kata_Invoicing.Infrastructure.DomainBase
                         formatter.Serialize(fs, objectToSerialize);
                     }
                 }
+
                 return fs.ToArray();
             }
             catch (SerializationException se)
             {
                 Console.WriteLine("Error occurred during serialization. Message: " +
                 se.Message);
-                return null;
+                return Array.Empty<byte>(); 
             }
             finally
             {

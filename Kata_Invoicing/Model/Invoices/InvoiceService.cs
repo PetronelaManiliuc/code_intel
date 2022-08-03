@@ -13,8 +13,8 @@ namespace Kata_Invoicing.Model.Invoices
 
         static InvoiceService()
         {
-            InvoiceService.unitOfWork = new UnitOfWork();
-            InvoiceService.repository = RepositoryFactory.GetRepository<IInvoiceRepository, Invoice>(InvoiceService.unitOfWork);
+            unitOfWork = new UnitOfWork();
+            repository = RepositoryFactory.GetRepository<IInvoiceRepository, Invoice>(InvoiceService.unitOfWork);
         }
         
         //Invoice

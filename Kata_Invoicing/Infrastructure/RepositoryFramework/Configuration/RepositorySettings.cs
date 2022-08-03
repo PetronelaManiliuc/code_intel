@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 
 namespace Kata_Invoicing.Infrastructure.RepositoryFramework.Configuration
 {
@@ -14,7 +9,7 @@ namespace Kata_Invoicing.Infrastructure.RepositoryFramework.Configuration
             IsDefaultCollection = true)]
         public RepositoryMappingCollection RepositoryMappings
         {
-            get { return (RepositoryMappingCollection)base[RepositoryMappingConstants.ConfigurationPropertyName]; }
+            get => (RepositoryMappingCollection)base[RepositoryMappingConstants.ConfigurationPropertyName];
         }
     }
 }

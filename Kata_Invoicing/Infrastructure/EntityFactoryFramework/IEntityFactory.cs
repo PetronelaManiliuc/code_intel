@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data;
 using Kata_Invoicing.Infrastructure.DomainBase;
 
 namespace Kata_Invoicing.Infrastructure.EntityFactoryFramework

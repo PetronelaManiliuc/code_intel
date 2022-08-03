@@ -8,8 +8,6 @@ namespace Kata_Invoicing.Infrastructure
 {
     public static class DataHelper
     {
-        private const string MinSqlDateValue = "1/1/1753";
-
         #region Static Data Helper Methods
 
         public static DateTime GetDateTime(object value)
@@ -17,26 +15,12 @@ namespace Kata_Invoicing.Infrastructure
             DateTime dateValue = DateTime.MinValue;
             if ((value != null) && (value != DBNull.Value))
             {
-                if ((DateTime)value > DateTime.Parse(DataHelper.MinSqlDateValue))
+                if ((DateTime)value > DateTime.Parse(Constants.MinSqlDateValue))
                 {
                     dateValue = (DateTime)value;
                 }
             }
             return dateValue;
-        }
-
-        public static DateTime? GetNullableDateTime(object value)
-        {
-            DateTime? dateTimeValue = null;
-            DateTime dbDateTimeValue;
-            if (value != null && !Convert.IsDBNull(value))
-            {
-                if (DateTime.TryParse(value.ToString(), out dbDateTimeValue))
-                {
-                    dateTimeValue = dbDateTimeValue;
-                }
-            }
-            return dateTimeValue;
         }
 
         public static int GetInteger(object value)
@@ -45,20 +29,6 @@ namespace Kata_Invoicing.Infrastructure
             if (value != null && !Convert.IsDBNull(value))
             {
                 int.TryParse(value.ToString(), out integerValue);
-            }
-            return integerValue;
-        }
-
-        public static int? GetNullableInteger(object value)
-        {
-            int? integerValue = null;
-            int parseIntegerValue = 0;
-            if (value != null && !Convert.IsDBNull(value))
-            {
-                if (int.TryParse(value.ToString(), out parseIntegerValue))
-                {
-                    integerValue = parseIntegerValue;
-                }
             }
             return integerValue;
         }
@@ -73,20 +43,6 @@ namespace Kata_Invoicing.Infrastructure
             return decimalValue;
         }
 
-        public static decimal? GetNullableDecimal(object value)
-        {
-            decimal? decimalValue = null;
-            decimal parseDecimalValue = 0;
-            if (value != null && !Convert.IsDBNull(value))
-            {
-                if (decimal.TryParse(value.ToString(), out parseDecimalValue))
-                {
-                    decimalValue = parseDecimalValue;
-                }
-            }
-            return decimalValue;
-        }
-
         public static double GetDouble(object value)
         {
             double doubleValue = 0;
@@ -94,21 +50,6 @@ namespace Kata_Invoicing.Infrastructure
             {
                 double.TryParse(value.ToString(), out doubleValue);
             }
-            return doubleValue;
-        }
-
-        public static double? GetNullableDouble(object value)
-        {
-            double? doubleValue = null;
-            double parseDoubleValue = 0;
-            if (value != null && !Convert.IsDBNull(value))
-            {
-                if (double.TryParse(value.ToString(), out parseDoubleValue))
-                {
-                    doubleValue = parseDoubleValue;
-                }
-            }
-
             return doubleValue;
         }
 
@@ -129,26 +70,9 @@ namespace Kata_Invoicing.Infrastructure
             return guidValue;
         }
 
-        public static Guid? GetNullableGuid(object value)
-        {
-            Guid? guidValue = null;
-            if (value != null && !Convert.IsDBNull(value))
-            {
-                try
-                {
-                    guidValue = new Guid(value.ToString());
-                }
-                catch
-                {
-                    // really do nothing, because we want to return a value for the guid = null;
-                }
-            }
-            return guidValue;
-        }
-
         public static string GetString(object value)
         {
-            string stringValue = null;
+            string stringValue = string.Empty;
             if (value != null && !Convert.IsDBNull(value))
             {
                 stringValue = value.ToString().Trim();
@@ -166,17 +90,6 @@ namespace Kata_Invoicing.Infrastructure
             return bReturn;
         }
 
-        public static bool? GetNullableBoolean(object value)
-        {
-            bool? bReturn = null;
-            if (value != null && value != DBNull.Value)
-            {
-                bReturn = (bool)value;
-            }
-
-            return bReturn;
-        }
-
         public static T GetEnumValue<T>(object databaseValue) where T : struct
         {
             T enumValue = default(T);
@@ -191,16 +104,6 @@ namespace Kata_Invoicing.Infrastructure
             }
 
             return enumValue;
-        }
-
-        public static byte[] GetByteArrayValue(object value)
-        {
-            byte[] arrayValue = null;
-            if (value != null && value != DBNull.Value)
-            {
-                arrayValue = (byte[])value;
-            }
-            return arrayValue;
         }
 
         public static string EntityListToDelimited<T>(IList<T> entities) where T : IEntity
@@ -233,96 +136,39 @@ namespace Kata_Invoicing.Infrastructure
             }
             return containsColumnName;
         }
-
-        public static object GetSqlValue(object value)
+               
+        public static object GetSqlValue<T>(T value)
         {
             if (value != null)
             {
-                if (value is Guid)
+                string typeValue = value.GetType().Name;
+                switch (typeValue)
                 {
-                    return GetSqlValue((Guid)value);
+                    case "String":
+                    case "Enum":
+                        return string.Format("N'{0}'", value.ToString().Replace("'", "''"));
+                    case "Guid":
+                        return string.Format("'{0}'", value.ToString());
+                    case "Boolean":
+                        bool isBoolean;
+                        return bool.TryParse(value.ToString(), out isBoolean) ? "1" : "0";
+                    case "DateTime":
+                        if (DateTime.Parse(value.ToString()) == DateTime.MinValue)
+                        {
+                            return string.Format("'{0}'",
+                                Constants.MinSqlDateValue);
+                        }
+                        return string.Format("'{0}'", value.ToString());
+
+                    default:
+                        return value;
                 }
-                else
-                {
-                    return value;
-                }
             }
             else
             {
                 return "NULL";
             }
         }
-
-        public static object GetSqlValue(string value)
-        {
-            if (value != null)
-            {
-                return string.Format("N'{0}'", value.Replace("'", "''"));
-            }
-            else
-            {
-                return "NULL";
-            }
-        }
-
-        public static object GetSqlValue(DateTime value)
-        {
-            if (value != null)
-            {
-                if (value == DateTime.MinValue)
-                {
-                    return string.Format("'{0}'",
-                        DataHelper.MinSqlDateValue);
-                }
-                return string.Format("'{0}'", value.ToString());
-            }
-            else
-            {
-                return "NULL";
-            }
-        }
-
-        public static object GetSqlValue(DateTime? value)
-        {
-            if (value.HasValue)
-            {
-                return DataHelper.GetSqlValue(value.Value);
-            }
-            else
-            {
-                return "NULL";
-            }
-        }
-
-        public static object GetSqlValue(bool value)
-        {
-            return value ? "1" : "0";
-        }
-
-        public static object GetSqlValue(Guid value)
-        {
-            if (value != null)
-            {
-                return string.Format("'{0}'", value.ToString());
-            }
-            else
-            {
-                return "NULL";
-            }
-        }
-
-        public static object GetSqlValue(Enum value)
-        {
-            if (value != null)
-            {
-                return DataHelper.GetSqlValue(value.ToString());
-            }
-            else
-            {
-                return "NULL";
-            }
-        }
-
         #endregion
     }
 }

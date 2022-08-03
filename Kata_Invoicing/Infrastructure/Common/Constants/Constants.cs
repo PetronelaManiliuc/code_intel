@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kata_Invoicing
+﻿namespace Kata_Invoicing
 {
     public static class Constants
     {
@@ -23,6 +17,7 @@ namespace Kata_Invoicing
         public const string Excel4DecimalsFormatPattern = "0.0000";
         public const string Excel6DecimalsFormatPattern = "0.000000";
         public const string LONG_DATE_FORMAT = "dd/MM/yyyy";
-        
+
+        public const string MinSqlDateValue = "1/1/1753";
     }
 }

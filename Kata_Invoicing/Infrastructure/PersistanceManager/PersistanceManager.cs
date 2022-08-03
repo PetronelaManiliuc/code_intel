@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Kata_Invoicing.Infrastructure.Helpers;
 using log4net;
 
@@ -139,7 +136,7 @@ namespace Kata_Invoicing.Infrastructure.PersistanceManager
         }
         public static List<string> GetSabadellImportedFiles(SqlCommand command)
         {
-            List<String> fileNames = new List<String>();
+            List<string> fileNames = new List<string>();
 
             try
             {

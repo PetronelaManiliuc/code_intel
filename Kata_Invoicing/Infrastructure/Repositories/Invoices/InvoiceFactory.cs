@@ -6,27 +6,6 @@ namespace Kata_Invoicing.Infrastructure.Repositories.Invoices
 {
     class InvoiceFactory : IEntityFactory<Invoice>
     {
-        #region Field Names
-
-        internal static class FieldNames
-        {
-            public const string Id = "ID";
-            public const string ContractID = "ContractID";
-            public const string SettlementCycleID = "SettlementCycleID";
-            public const string DateCreated = "DateCreated";
-            public const string InvoiceDate = "InvoiceDate";
-            public const string InvoiceStartDate = "InvoiceStartDate";
-            public const string InvoiceEndDate = "InvoiceEndDate";
-            public const string InvoiceTypeID = "InvoiceTypeID";
-            public const string Number = "Number";
-            public const string TotalPayOutAmount = "TotalPayOutAmount";
-            public const string SettlementCurrency = "SettlementCurrency";
-            public const string InvoiceFilePathXLS = "InvoiceFilePathXLS";
-  
-        }
-
-        #endregion
-
         #region IEntityFactory<Invoice> Members
 
         public Invoice BuildEntity(IDataReader reader)

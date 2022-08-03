@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Kata_Invoicing.Infrastructure;
+﻿using Kata_Invoicing.Infrastructure;
 using Kata_Invoicing.Infrastructure.PersistanceManager;
 
 namespace Kata_Invoicing.Model.Invoices
@@ -28,18 +23,18 @@ namespace Kata_Invoicing.Model.Invoices
         public IItem CreateFromReader(System.Data.IDataReader dataReader)
         {
             var invoicePayment = new InvoicePayment();
-            invoicePayment.ID = DataHelper.GetInteger(dataReader["ID"]);
-            invoicePayment.InvoiceID = DataHelper.GetInteger(dataReader["InvoiceID"]);
-            invoicePayment.ClientSiteID = DataHelper.GetInteger(dataReader["ClientSiteID"]);
-            invoicePayment.ClientSiteName = DataHelper.GetString(dataReader["ClientSiteName"]);
-            invoicePayment.MethodID = DataHelper.GetInteger(dataReader["MethodID"]);
-            invoicePayment.MethodName = DataHelper.GetString(dataReader["MethodName"]);
-            invoicePayment.Currency = DataHelper.GetString(dataReader["Currency"]);
-            invoicePayment.Amount = DataHelper.GetDecimal(dataReader["Amount"]);
-            invoicePayment.SettlementCurrency = DataHelper.GetString(dataReader["SettlementCurrency"]);
-            invoicePayment.CalculatedAmount = DataHelper.GetDecimal(dataReader["CalculatedAmount"]);
-            invoicePayment.ExchangeRate = DataHelper.GetDecimal(dataReader["ExchangeRate"]);
-            invoicePayment.PaymentTypeID = DataHelper.GetInteger(dataReader["PaymentTypeID"]);
+            invoicePayment.ID = DataHelper.GetInteger(dataReader[FieldNames.Id]);
+            invoicePayment.InvoiceID = DataHelper.GetInteger(dataReader[FieldNames.InvoiceID]);
+            invoicePayment.ClientSiteID = DataHelper.GetInteger(dataReader[FieldNames.ClientSiteID]);
+            invoicePayment.ClientSiteName = DataHelper.GetString(dataReader[FieldNames.ClientSiteName]);
+            invoicePayment.MethodID = DataHelper.GetInteger(dataReader[FieldNames.MethodID]);
+            invoicePayment.MethodName = DataHelper.GetString(dataReader[FieldNames.MethodName]);
+            invoicePayment.Currency = DataHelper.GetString(dataReader[FieldNames.Currency]);
+            invoicePayment.Amount = DataHelper.GetDecimal(dataReader[FieldNames.Amount]);
+            invoicePayment.SettlementCurrency = DataHelper.GetString(dataReader[FieldNames.SettlementCurrency]);
+            invoicePayment.CalculatedAmount = DataHelper.GetDecimal(dataReader[FieldNames.CalculatedAmount]);
+            invoicePayment.ExchangeRate = DataHelper.GetDecimal(dataReader[FieldNames.ExchangeRate]);
+            invoicePayment.PaymentTypeID = DataHelper.GetInteger(dataReader[FieldNames.PaymentTypeID]);
 
             return invoicePayment;
         }

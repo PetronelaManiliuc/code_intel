@@ -8,24 +8,18 @@ namespace Kata_Invoicing.Infrastructure.RepositoryFramework.Configuration
 
         public string InterfaceShortTypeName
         {
-            get
-            {
-                return (string)this[RepositoryMappingConstants.InterfaceShortTypeNameAttributeName]
-                    ;
-            }
-            set { this[RepositoryMappingConstants.InterfaceShortTypeNameAttributeName] = value; }
+            get => (string)this[RepositoryMappingConstants.InterfaceShortTypeNameAttributeName];
+
+            set => this[RepositoryMappingConstants.InterfaceShortTypeNameAttributeName] = value;
         }
 
         [ConfigurationProperty(RepositoryMappingConstants.RepositoryFullTypeNameAttributeName, IsRequired = true)]
 
         public string RepositoryFullTypeName
         {
-            get
-            {
-                return
-                    (string)this[RepositoryMappingConstants.RepositoryFullTypeNameAttributeName];
-            }
-            set { this[RepositoryMappingConstants.RepositoryFullTypeNameAttributeName] = value; }
+            get => (string)this[RepositoryMappingConstants.RepositoryFullTypeNameAttributeName];
+
+            set => this[RepositoryMappingConstants.RepositoryFullTypeNameAttributeName] = value;
         }
     }
 }

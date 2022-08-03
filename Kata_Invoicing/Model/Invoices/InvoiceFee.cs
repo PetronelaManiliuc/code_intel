@@ -1,5 +1,4 @@
-﻿using System;
-using Kata_Invoicing.Infrastructure;
+﻿using Kata_Invoicing.Infrastructure;
 using Kata_Invoicing.Infrastructure.PersistanceManager;
 
 namespace Kata_Invoicing.Model.Invoices
@@ -26,21 +25,21 @@ namespace Kata_Invoicing.Model.Invoices
         public IItem CreateFromReader(System.Data.IDataReader dataReader)
         {
             IItem invoiceFeeView = new InvoiceFee();
-            ((InvoiceFee)invoiceFeeView).ID = DataHelper.GetInteger(dataReader["ID"]);
-            ((InvoiceFee)invoiceFeeView).InvoiceID = DataHelper.GetInteger(dataReader["InvoiceID"]);
-            ((InvoiceFee)invoiceFeeView).ClientSiteID = DataHelper.GetInteger(dataReader["ClientSiteID"]);
-            ((InvoiceFee)invoiceFeeView).ClientSiteName = DataHelper.GetString(dataReader["ClientSiteName"]);
-            ((InvoiceFee)invoiceFeeView).MethodID = DataHelper.GetInteger(dataReader["MethodID"]);
-            ((InvoiceFee)invoiceFeeView).MethodName = DataHelper.GetString(dataReader["MethodName"]);
-            ((InvoiceFee)invoiceFeeView).FeeID = DataHelper.GetInteger(dataReader["FeeID"]);
-            ((InvoiceFee)invoiceFeeView).FeeDescription = DataHelper.GetString(dataReader["FeeDescription"]);
-            ((InvoiceFee)invoiceFeeView).Formula = DataHelper.GetString(dataReader["Formula"]);
-            ((InvoiceFee)invoiceFeeView).Count = DataHelper.GetInteger(dataReader["Count"]);
-            ((InvoiceFee)invoiceFeeView).CalculatedAmount = DataHelper.GetDecimal(dataReader["CalculatedAmount"]);
-            ((InvoiceFee)invoiceFeeView).SettlementCurrency = DataHelper.GetString(dataReader["SettlementCurrency"]);
-            ((InvoiceFee)invoiceFeeView).Country = DataHelper.GetString(dataReader["Country"]);
-            ((InvoiceFee)invoiceFeeView).TrxMonth = DataHelper.GetInteger(dataReader["TrxMonth"]);
-            ((InvoiceFee)invoiceFeeView).TrxYear = DataHelper.GetInteger(dataReader["TrxYear"]);
+            ((InvoiceFee)invoiceFeeView).ID = DataHelper.GetInteger(dataReader[FieldNames.Id]);
+            ((InvoiceFee)invoiceFeeView).InvoiceID = DataHelper.GetInteger(dataReader[FieldNames.InvoiceID]);
+            ((InvoiceFee)invoiceFeeView).ClientSiteID = DataHelper.GetInteger(dataReader[FieldNames.ClientSiteID]);
+            ((InvoiceFee)invoiceFeeView).ClientSiteName = DataHelper.GetString(dataReader[FieldNames.ClientSiteName]);
+            ((InvoiceFee)invoiceFeeView).MethodID = DataHelper.GetInteger(dataReader[FieldNames.MethodID]);
+            ((InvoiceFee)invoiceFeeView).MethodName = DataHelper.GetString(dataReader[FieldNames.MethodName]);
+            ((InvoiceFee)invoiceFeeView).FeeID = DataHelper.GetInteger(dataReader[FieldNames.FeeID]);
+            ((InvoiceFee)invoiceFeeView).FeeDescription = DataHelper.GetString(dataReader[FieldNames.FeeDescription]);
+            ((InvoiceFee)invoiceFeeView).Formula = DataHelper.GetString(dataReader[FieldNames.Formula]);
+            ((InvoiceFee)invoiceFeeView).Count = DataHelper.GetInteger(dataReader[FieldNames.Count]);
+            ((InvoiceFee)invoiceFeeView).CalculatedAmount = DataHelper.GetDecimal(dataReader[FieldNames.CalculatedAmount]);
+            ((InvoiceFee)invoiceFeeView).SettlementCurrency = DataHelper.GetString(dataReader[FieldNames.SettlementCurrency]);
+            ((InvoiceFee)invoiceFeeView).Country = DataHelper.GetString(dataReader[FieldNames.Country]);
+            ((InvoiceFee)invoiceFeeView).TrxMonth = DataHelper.GetInteger(dataReader[FieldNames.TrxMonth]);
+            ((InvoiceFee)invoiceFeeView).TrxYear = DataHelper.GetInteger(dataReader[FieldNames.TrxYear]);
             return invoiceFeeView;
         }
     }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kata_Invoicing.Infrastructure.DomainBase
 {
@@ -32,17 +28,17 @@ namespace Kata_Invoicing.Infrastructure.DomainBase
 
         public BrokenRuleType Type
         {
-            get { return this.type; }
+            get => this.type;
         }
 
         public string Name
         {
-            get { return this.name; }
+            get => this.name;
         }
 
         public string Description
         {
-            get { return this.description; }
+            get => this.description;
         }
     }
 }

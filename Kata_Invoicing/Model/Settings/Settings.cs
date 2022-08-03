@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Kata_Invoicing.Infrastructure.DomainBase;
 
 namespace Kata_Invoicing.Model.Settings
@@ -13,10 +9,7 @@ namespace Kata_Invoicing.Model.Settings
         public string ExportInvoicesPath { get; set; }
 
 
-        public int Key
-        {
-            get { return 0; }
-        }
+        public new int Key => 0;
 
         public override void Validate()
         {
